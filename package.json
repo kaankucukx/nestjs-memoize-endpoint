@@ -18,24 +18,24 @@
     "typescript": "^5.0.3"
   },
   "keywords": [
-    nestjs\n
-    memoize\n
-    caching\n
-    decorator\n
-    api\n
-    endpoint\n
-    performance\n
-    optimization\n
-    ttl\n
-    cache\n
-    server\n
-    memory\n
-    response\n
-    time\n
-    load\n
-    database\n
-    backend\n
-    pod\n
+    "nestjs",
+    "memoize",
+    "caching",
+    "decorator",
+    "api",
+    "endpoint",
+    "performance",
+    "optimization",
+    "ttl",
+    "cache",
+    "server",
+    "memory",
+    "response",
+    "time",
+    "load",
+    "database",
+    "backend",
+    "pod",
     "kubernetes"
   ],
   "files": [
