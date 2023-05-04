@@ -24,17 +24,17 @@ export const Memoize = (
       const cacheKey = JSON.stringify(args);
 
       if (cache.has(cacheKey)) {
-        // console.log("Cache hit:", cacheKey);
+        console.log("Cache hit:", cacheKey);
         return cache.get(cacheKey);
       }
 
-      console.log("Cache miss:", cacheKey);
+      // console.log("Cache miss:", cacheKey);
       let result;
       try {
         result = await originalMethod.apply(this, args);
         cache.set(cacheKey, result);
       } catch (e) {
-        // console.log("No record", cacheKey);
+        console.log("No record", cacheKey);
       }
       setTimeout(() => removeCache(cacheKey), ttl);
 
