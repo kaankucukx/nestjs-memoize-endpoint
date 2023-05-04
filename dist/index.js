@@ -18,7 +18,7 @@ const Memoize = (ttl = 300000) => {
         descriptor.value = async function (...args) {
             const cacheKey = JSON.stringify(args);
             if (cache.has(cacheKey)) {
-                console.log("Cache hit:", cacheKey);
+                // console.log("Cache hit:", cacheKey);
                 return cache.get(cacheKey);
             }
             console.log("Cache miss:", cacheKey);
@@ -28,7 +28,7 @@ const Memoize = (ttl = 300000) => {
                 cache.set(cacheKey, result);
             }
             catch (e) {
-                console.log("No record", cacheKey);
+                // console.log("No record", cacheKey);
             }
             setTimeout(() => removeCache(cacheKey), ttl);
             return result;
