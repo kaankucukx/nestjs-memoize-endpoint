@@ -1,7 +1,7 @@
 {
   "name": "nestjs-memoize-endpoint",
   "version": "1.2.1",
-  "description": "A NestJS decorator that memoizes endpoint results based on the given parameters, improving performance and response times.",
+  "description": "A NestJS decorator that memoize endpoint results based on the given parameters, improving performance and response times.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -15,7 +15,7 @@
     "url": "https://github.com/kaankucukx/nestjs-memoize-endpoint.git"
   },
   "devDependencies": {
-    "typescript": "^5.0.3"
+    "typescript": "5.0.4"
   },
   "keywords": [
     "nestjs",
