@@ -1,4 +1,4 @@
-import {LRUCache} from "@memoize/lru-cache";
+import {LRUCache} from "./lru-cache";
 
 /*
     * Cache endpoints with the given params.
