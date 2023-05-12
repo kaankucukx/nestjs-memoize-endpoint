@@ -75,4 +75,28 @@ describe('Memoize', () => {
         expect(mockFunction).toHaveBeenCalledTimes(2);
 
     });
+    it('when verbose is true should log cache miss, cache hit and error', async () => {
+        const logSpy = jest.spyOn(console, 'log');
+        const logErrorSpy = jest.spyOn(console, 'error');
+        const mockFn = jest.fn();
+        class TestClassVerbose{
+            @Memoize({ ttl: 1000, verbose: true, capacity: 1 })
+            async testMethod(param: any) {
+                return mockFn(param);
+            }
+        }
+        const verboseTestObject = new TestClassVerbose();
+        await verboseTestObject.testMethod('hello');
+        expect(logSpy).toHaveBeenCalled();
+        mockFn.mockRejectedValueOnce(new Error('error'));
+        await verboseTestObject.testMethod('hello');
+        expect(logErrorSpy).toHaveBeenCalled();
+
+        const value = "value";
+        mockGet.mockReturnValueOnce({ value });
+        await verboseTestObject.testMethod('hello');
+        expect(logSpy).toHaveBeenCalledTimes(2);
+
+
+    });
 });

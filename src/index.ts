@@ -48,9 +48,9 @@ export const Memoize = ({
         // Set the new value and timeout
         const timeoutId : NodeJS.Timeout = setTimeout(() => cache.delete(cacheKey), ttl);
         cache.set(cacheKey, { value: result, timeoutId});
-
+        verbose && console.log("Cache miss:", cacheKey);
       } catch (e) {
-        verbose && console.log("No record", cacheKey);
+        verbose && console.error(e);
       }
 
       return result;
