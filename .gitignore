@@ -43,5 +43,4 @@ launch.json
 .env
 globalConfig.json
 
-dist
 .idea
