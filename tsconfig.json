@@ -16,6 +16,7 @@
       "esnext",
       "dom"
     ],
+    "experimentalDecorators": true,
     /* Specify a set of bundled library declaration files that describe the target runtime environment. */
     // "jsx": "preserve",                                /* Specify what JSX code is generated. */
     // "experimentalDecorators": true,                   /* Enable experimental support for legacy experimental decorators. */
@@ -118,7 +119,19 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@memoize/*": [
+        "src/*"
+      ],
+      "@src/*": [
+        "src/*"
+      ],
+      "@test/*": [
+        "test/*"
+      ]
+    },
+    "baseUrl": ".", // This must be specified if "paths" is.
   },
   "include": [
     "src/**/*"

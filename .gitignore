@@ -42,3 +42,5 @@ launch.json
 **/.vscode
 .env
 globalConfig.json
+
+.idea
