@@ -1,5 +1,11 @@
 import {LRUCache} from "@memoize/lru-cache";
 
+/*
+    * Cache endpoints with the given params.
+    * @param {number} ttl
+    * @param {boolean} verbose
+    * @param {number} capacity
+ */
 export interface MemoizeOptions {
   ttl?: number;
   verbose?: boolean;
@@ -15,6 +21,8 @@ type CacheEntry = {
  * Cache endpoints with the given params.
  *
  * @param {number} ttl
+ * @param {boolean} verbose
+ * @param {number} capacity
  * @returns {(target, propertyKey, descriptor: PropertyDescriptor) => void}
  * @constructor
  */
