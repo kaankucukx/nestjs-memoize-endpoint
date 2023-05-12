@@ -1,3 +1,16 @@
+import {LRUCache} from "@memoize/lru-cache";
+
+export interface MemoizeOptions {
+  ttl?: number;
+  verbose?: boolean;
+  capacity?: number;
+}
+
+type CacheEntry = {
+  value: any;
+  timeoutId: NodeJS.Timeout;
+};
+
 /**
  * Cache endpoints with the given params.
  *
@@ -5,38 +18,40 @@
  * @returns {(target, propertyKey, descriptor: PropertyDescriptor) => void}
  * @constructor
  */
-export const Memoize = (
-  ttl = 300000
-): ((
-  target: any,
-  propertyKey: any,
-  descriptor: PropertyDescriptor
+export const Memoize = ({
+                          ttl = 300000,
+                          verbose = false,
+                          capacity = 1000
+                        } : MemoizeOptions): ((
+    target: any,
+    propertyKey: any,
+    descriptor: PropertyDescriptor
 ) => void) => {
-  return (target, propertyKey, descriptor: PropertyDescriptor) => {
+  return (target, propertyKey, descriptor) => {
     const originalMethod = descriptor.value;
-    const cache: Map<string, Record<string, string>> = new Map();
-
-    function removeCache(cacheKey: string) {
-      cache.delete(cacheKey);
-    }
+    const cache: LRUCache<string, CacheEntry> = new LRUCache(capacity);
 
     descriptor.value = async function (...args: any) {
       const cacheKey = JSON.stringify(args);
 
-      if (cache.has(cacheKey)) {
-        console.log("Cache hit:", cacheKey);
-        return cache.get(cacheKey);
+      const cachedEntry = cache.get(cacheKey);
+      if (cachedEntry) {
+        verbose && console.log("Cache hit:", cacheKey);
+        return cachedEntry.value;
       }
 
-      // console.log("Cache miss:", cacheKey);
       let result;
       try {
         result = await originalMethod.apply(this, args);
-        cache.set(cacheKey, result);
+
+
+        // Set the new value and timeout
+        const timeoutId : NodeJS.Timeout = setTimeout(() => cache.delete(cacheKey), ttl);
+        cache.set(cacheKey, { value: result, timeoutId});
+
       } catch (e) {
-        console.log("No record", cacheKey);
+        verbose && console.log("No record", cacheKey);
       }
-      setTimeout(() => removeCache(cacheKey), ttl);
 
       return result;
     };
