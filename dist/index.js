@@ -6,6 +6,8 @@ const lru_cache_1 = require("@memoize/lru-cache");
  * Cache endpoints with the given params.
  *
  * @param {number} ttl
+ * @param {boolean} verbose
+ * @param {number} capacity
  * @returns {(target, propertyKey, descriptor: PropertyDescriptor) => void}
  * @constructor
  */

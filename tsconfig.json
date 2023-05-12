@@ -122,15 +122,16 @@
     "skipLibCheck": true,
     "paths": {
       "@memoize/*": [
-        "./src/*"
+        "src/*"
       ],
       "@src/*": [
-        "./src/*"
+        "src/*"
       ],
       "@test/*": [
-        "./test/*"
+        "test/*"
       ]
-    }
+    },
+    "baseUrl": ".", // This must be specified if "paths" is.
   },
   "include": [
     "src/**/*"
