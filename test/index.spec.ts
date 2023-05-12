@@ -65,4 +65,14 @@ describe('Memoize', () => {
         expect(response2).toBe(value);
 
     });
+    it('should call delete if more elements that capacity is added', async () => {
+        const value = "value";
+        mockFunction.mockReturnValue(value );
+        await testObject.testMethod('param1');
+        await testObject.testMethod('param2');
+        expect(mockDelete).toHaveBeenCalled();
+        expect(mockDelete).toHaveBeenCalledWith(JSON.stringify(['param1']));
+        expect(mockFunction).toHaveBeenCalledTimes(2);
+
+    });
 });
