@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Memoize = void 0;
-const lru_cache_1 = require("@memoize/lru-cache");
+const lru_cache_1 = require("./lru-cache");
 /**
  * Cache endpoints with the given params.
  *
