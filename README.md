@@ -28,7 +28,45 @@ This command installs the nestjs-memoize-endpoint package into your project.
 Usage
 -----
 
-Import the Memoize decorator and apply it to the endpoint methods you want to cache.
+The `@Memoize` decorator should be placed directly above the function it's intended to cache. If there are other decorators placed between the `@Memoize` decorator and the original function, this will lead to errors as the `@Memoize` decorator may end up caching the wrong function or data.
+
+Incorrect usage:
+
+
+```typescript
+import { Memoize } from 'nestjs-memoize-endpoint';
+import { CustomDecorator } from 'path-to-custom-decorator';
+
+class MyController {
+  @Memoize() // Incorrect placement. Memoize should be the closest decorator to the function.
+  @CustomDecorator()
+  async getData(): Promise<any> {
+    // Fetch data from a slow API or database
+  }
+}
+```
+
+In the above example, the `@Memoize` decorator is placed after the `@CustomDecorator`. This will cause the `@Memoize` decorator to cache the result of the `@CustomDecorator` instead of the `getData` function, leading to unexpected results.
+
+Correct usage:
+
+
+```typescript
+import { Memoize } from 'nestjs-memoize-endpoint';
+import { CustomDecorator } from 'path-to-custom-decorator';
+
+class MyController {
+  @CustomDecorator()
+  @Memoize() // Correct placement. Memoize is the closest decorator to the function.
+  async getData(): Promise<any> {
+    // Fetch data from a slow API or database
+  }
+}
+```
+
+In this correct example, the `@Memoize` decorator is placed directly above the `getData` function, ensuring that it's the `getData` function result that's being cached. Any other decorators can be placed above the `@Memoize` decorator.
+
+This rule applies to all kinds of decorators in NestJS, not just `@Memoize`. The decorator that's intended to modify the function should always be placed closest to the function. This ensures the decorator acts upon the correct function and data, preventing any potential errors or unexpected behavior.
 
 Basic Example
 -------------
